@@ -1,13 +1,15 @@
 require('dotenv').config();
-const ynab = require('ynab');
+const express = require('express');
 
-const accessToken = process.env.YNAB_KEY;
-const ynabAPI = new ynab.API(accessToken);
+const ynabTest = require('./ynab.js');
 
-async function ynabTest() {
-  const budgetsResponse = await ynabAPI.budgets.getBudgets();
-  const { budgets } = budgetsResponse.data;
-  console.log(budgets);
-}
+console.log(ynabTest);
 
-ynabTest();
+const app = express();
+
+app.get('/', async (req, res) => {
+  const budgets = await ynabTest();
+  return res.send(budgets);
+});
+
+app.listen(3000, () => console.log('App listening on port 3000 here http://localhost:3000'));
