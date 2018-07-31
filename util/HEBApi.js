@@ -55,3 +55,5 @@ class HEBApi {
     );
   }
 }
+
+module.exports = HEBApi;
